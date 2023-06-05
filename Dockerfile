@@ -14,6 +14,9 @@ RUN ./download-paper.sh 1.19.4
 
 FROM eclipse-temurin:20-jre as runtime
 
+ARG memory_size=6G
+ENV MEMORYSIZE=$memory_size
+
 WORKDIR /data
 RUN useradd docker
 
