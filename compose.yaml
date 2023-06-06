@@ -12,5 +12,8 @@ services:
 
 volumes:
   minecraft-server:
-    # volume is external so it cannot accidentally be deleted when deleting the container
-    external: true
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '~/minecraft'
