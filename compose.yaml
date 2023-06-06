@@ -6,11 +6,6 @@ services:
       - 25565:25565
       - 25575:25575
     volumes:
-      - "minecraft-server:/data:rw"
+      - "./server-data:/data:rw"
     stdin_open: true
     tty: true
-
-volumes:
-  minecraft-server:
-    # volume is external so it cannot accidentally be deleted when deleting the container
-    external: true
