@@ -1,6 +1,6 @@
 # papermc-docker
 
-A Docker image for a 1.19 Java PaperMC server.
+A Docker image for a 1.19 Java PaperMC server including a Maria Database server.
 
 ## Installation
 
@@ -13,15 +13,12 @@ git clone https://github.com/fekuxle/papermc-docker.git
 cd papermc-docker
 ```
 
-By default the image needs a folder at your users home directory called `minecraft`,
-It saves all server data in this directory, including world files and configs
+First, you probably want to change some of the database settings
+these can be found at the [Docker page for MariaDB](https://hub.docker.com/_/mariadb) under `Environment Variables` and need to be specified in a `.env` file
+
+By default the containers store data in the `apps` directory
+It saves all server data in this directory, including world files, configs and database files
 To change this, edit the device path in [compose.yaml](compose.yaml)
-
-Create the directory, replace the name or path if you changed the location
-
-```sh
-mkdir ~/minecraft
-```
 
 After that, simply start the container
 

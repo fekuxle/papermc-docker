@@ -1,14 +1,41 @@
 services:
-  server:
+  minecraft:
     build: .
     restart: always
+    depends_on:
+      - mariadb
+    networks: 
+      - all
     ports: 
+        #mc
       - 25565:25565
+        #rcon
       - 25575:25575
+        #simple voice chat
+      - 25545:25545
     volumes:
       - "minecraft-server:/data:rw"
     stdin_open: true
     tty: true
+
+  mariadb:
+    networks: 
+      - all
+    image: mariadb
+    restart: always
+    volumes: 
+      - "database-server:/var/lib/mysql:rw"
+    env_file: .env
+
+  adminer:
+    image: adminer 
+    restart: always
+    networks:
+      - all
+    ports: 
+      - 8080:8080
+    environment:
+      ADMINER_DEFAULT_SERVER: mariadb
 
 volumes:
   minecraft-server:
@@ -16,4 +43,13 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '~/minecraft'
+      device: './app/minecraft'
+  database-server:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: './app/database'
+
+networks:
+  all:
